@@ -101,29 +101,5 @@ namespace Minesweeper.Tests
 
             Assert.Equal(display, point.DisplayCharacter);
         }
-
-        [Theory]
-        [InlineData("A1", 0, 0)]
-        [InlineData("A2", 1, 0)]
-        [InlineData("A3", 2, 0)]
-        [InlineData("B1", 0, 1)]
-        [InlineData("B2", 1, 1)]
-        [InlineData("B3", 2, 1)]
-        [InlineData("C3", 2, 2)]
-        [InlineData("D4", 3, 3)]
-        [InlineData("E5", 4, 4)]
-        [InlineData("F6", 5, 5)]
-        [InlineData("G7", 6, 6)]
-        [InlineData("H8", 7, 7)]
-        public void MapUserInputToCoordinates_Maps_CorrectValues(string input, int horizontal, int vertical)
-        {
-            List<string> letters = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
-
-            var actual = GridPointHelper.MapUserInputToCoordinates(letters, input);
-
-            Assert.IsType<int[]>(actual);
-            Assert.Equal(horizontal, actual[0]);
-            Assert.Equal(vertical, actual[1]);
-        }
     }
 }

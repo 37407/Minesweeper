@@ -22,9 +22,17 @@ namespace Minesweeper
                 {
                     GamePlay.DisplayBoard(board, letters);
                     Console.WriteLine("Please enter a column and row (e.g. A8):");
-                    var input = Console.ReadLine().ToUpperInvariant();
+                    
+                    string input;
+                    bool validInput;
+                    do
+                    {
+                        input = Console.ReadLine().ToUpperInvariant();
+                        validInput = GamePlay.UserInputValid(input, letters, boardHeight);
+                        Console.WriteLine("Input is invalid - please enter a column and rod in the format A8.");
+                    } while (!validInput);
 
-                    var inputCoords = GridPointHelper.MapUserInputToCoordinates(letters, input);
+                    var inputCoords = GamePlay.MapUserInputToCoordinates(letters, input);
 
                     var selectedPoint = board[inputCoords[0], inputCoords[1]];
 
@@ -47,7 +55,7 @@ namespace Minesweeper
                     {
                         selectedPoint.IsHidden = false;
                         GridPointHelper.SetDisplayCharacter(selectedPoint);
-                        bool win = GamePlay.CheckForWin(board, mineCount);
+                        bool win = GamePlay.IsWin(board, mineCount);
                         if (win)
                         {
                             GamePlay.DisplayBoard(board, letters);

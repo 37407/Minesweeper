@@ -25,7 +25,22 @@ namespace Minesweeper
             }
         }
 
-        public static bool CheckForWin(GridPoint[,] board, int mineCount)
+        public static bool UserInputValid(string input, List<string> letters, int boardHeight)
+        {
+            return input.Length == 2
+                && letters.Contains(input[0].ToString())
+                && int.TryParse(input[1].ToString(), out int column)
+                && column < boardHeight;
+        }
+
+        public static int[] MapUserInputToCoordinates(List<string> letters, string input)
+        {
+            int column = letters.IndexOf(input.Substring(0, 1));
+            int row = int.Parse(input.Substring(1, 1)) - 1;
+            return new int[] { row, column };
+        }
+
+        public static bool IsWin(GridPoint[,] board, int mineCount)
         {
             int unhiddenPoints = 0;
             foreach (var point in board)
