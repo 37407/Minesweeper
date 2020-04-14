@@ -26,9 +26,9 @@ namespace Minesweeper
 
         public static int[] MapUserInputToCoordinates(List<string> letters, string input)
         {
-            int vertical = letters.IndexOf(input.Substring(0, 1));            
-            int horizontal = int.Parse(input.Substring(1, 1))-1;
-            return new int[] { horizontal, vertical };
+            int column = letters.IndexOf(input.Substring(0, 1));            
+            int row = int.Parse(input.Substring(1, 1))-1;
+            return new int[] { row, column };
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Minesweeper
 
                 while (!gameOver)
                 {
-                    BoardHelper.DisplayBoard(board, letters);
+                    GamePlay.DisplayBoard(board, letters);
                     Console.WriteLine("Please enter a column and row (e.g. A8):");
                     var input = Console.ReadLine().ToUpperInvariant();
 
@@ -36,7 +36,7 @@ namespace Minesweeper
                             GridPointHelper.SetDisplayCharacter(point);
                         }
 
-                        BoardHelper.DisplayBoard(board, letters);
+                        GamePlay.DisplayBoard(board, letters);
                         Console.WriteLine("**Sorry you hit a mine**");
                         Console.WriteLine("--Press any key to play again--");
                         Console.WriteLine();
@@ -47,10 +47,10 @@ namespace Minesweeper
                     {
                         selectedPoint.IsHidden = false;
                         GridPointHelper.SetDisplayCharacter(selectedPoint);
-                        bool win = BoardHelper.CheckForWin(board, mineCount);
+                        bool win = GamePlay.CheckForWin(board, mineCount);
                         if (win)
                         {
-                            BoardHelper.DisplayBoard(board, letters);
+                            GamePlay.DisplayBoard(board, letters);
                             Console.WriteLine("**Congratulations - you won!**");
                             gameOver = true;
                             newGame = false;

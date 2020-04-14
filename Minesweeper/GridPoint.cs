@@ -4,7 +4,6 @@ namespace Minesweeper
 {
     public class GridPoint
     {
-        public int[] GridCoordinates { get; set; }
         public bool IsMine { get; set; }
         public bool IsHidden { get; set; }
         public IList<int[]> NeighbourCoordinates { get; set; }

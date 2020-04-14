@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Minesweeper
 {
-    public static class BoardHelper
+    public static class GamePlay
     {
         public static void DisplayBoard(GridPoint[,] board, List<string> letters)
         {

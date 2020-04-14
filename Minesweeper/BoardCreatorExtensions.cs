@@ -15,7 +15,6 @@ namespace Minesweeper
                 {
                     board[x, y] = new GridPoint
                     {
-                        GridCoordinates = new int[] { x, y },
                         NeighbourCoordinates = GridPointHelper.CalculateNeighbourCoordinates(x, y, boardWidth, boardHeight),
                         IsHidden = true,
                         IsMine = false,

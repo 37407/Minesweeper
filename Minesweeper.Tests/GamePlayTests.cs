@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Minesweeper.Tests
 {
-    public class BoardHelperTests
+    public class GamePlayTests
     {
         [Fact]
         public void CheckForWin_AllNonMinePointsRevealed_ReturnsTrue()
@@ -16,7 +16,7 @@ namespace Minesweeper.Tests
                 if (!point.IsMine) point.IsHidden = false;
             }
 
-            var actual = BoardHelper.CheckForWin(board, 3);
+            var actual = GamePlay.CheckForWin(board, 3);
 
             Assert.True(actual);
         }
@@ -26,7 +26,7 @@ namespace Minesweeper.Tests
         {
             var board = BoardCreator.CreateNewBoard(3, 3, 3);
 
-            var actual = BoardHelper.CheckForWin(board, 3);
+            var actual = GamePlay.CheckForWin(board, 3);
             
             Assert.False(actual);
         }
