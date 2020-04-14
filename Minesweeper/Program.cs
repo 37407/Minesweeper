@@ -11,11 +11,11 @@ namespace Minesweeper
             int boardWidth = 8;
             int boardHeight = 8;
             int mineCount = 8;
+            var letters = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
 
             while (newGame)
             {
                 var board = BoardCreator.CreateNewBoard(boardWidth, boardHeight, mineCount);
-                var letters = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
                 bool gameOver = false;
 
                 while (!gameOver)
