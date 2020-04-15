@@ -20,7 +20,7 @@ namespace Minesweeper
 
         public static GridPoint SetDisplayCharacter(GridPoint point)
         {
-            point.DisplayCharacter = point.IsHidden ? "#" : point.IsMine ? "m" : point.AdjacentMineCount.ToString();
+            point.DisplayCharacter = point.IsHidden ? "*" : point.IsMine ? "m" : point.AdjacentMineCount.ToString();
             return point;
         }
     }

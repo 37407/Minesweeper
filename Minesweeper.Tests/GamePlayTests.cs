@@ -57,7 +57,7 @@ namespace Minesweeper.Tests
             foreach (var point in board)
             {
                 Assert.False(point.IsHidden);
-                Assert.NotEqual("#", point.DisplayCharacter);
+                Assert.NotEqual("*", point.DisplayCharacter);
             }
             Assert.Equal(GameState.Lost, actual);
         }
@@ -65,7 +65,7 @@ namespace Minesweeper.Tests
         [Fact]
         public void MineNotHit_UnhidesPoint_ReturnsGameStateInProgress()
         {
-            var point = new GridPoint { IsHidden = true, IsMine = false, DisplayCharacter = "#", AdjacentMineCount = 1 };
+            var point = new GridPoint { IsHidden = true, IsMine = false, DisplayCharacter = "*", AdjacentMineCount = 1 };
             var actual = GamePlay.MineNotHit(point);
 
             Assert.False(point.IsHidden);

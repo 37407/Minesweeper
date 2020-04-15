@@ -80,10 +80,10 @@ namespace Minesweeper.Tests
         }
 
         [Theory]
-        [InlineData(true, false, 0, "#")]
-        [InlineData(true, false, 1, "#")]
-        [InlineData(true, true, 0, "#")]
-        [InlineData(true, true, 1, "#")]
+        [InlineData(true, false, 0, "*")]
+        [InlineData(true, false, 1, "*")]
+        [InlineData(true, true, 0, "*")]
+        [InlineData(true, true, 1, "*")]
         [InlineData(false, true, 0, "m")]
         [InlineData(false, true, 1, "m")]
         [InlineData(false, false, 0, "0")]
