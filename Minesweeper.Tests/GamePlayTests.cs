@@ -47,7 +47,34 @@ namespace Minesweeper.Tests
         }
 
         [Fact]
-        public void IsWin_AllNonMinePointsRevealed_ReturnsTrue()
+        public void MineHit_UnhidesAllPoints_ReturnsGameStateLost()
+        {
+            var board = BoardCreator.CreateNewBoard(3, 3, 3);
+            List<string> letters = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
+
+            var actual = GamePlay.MineHit(board, letters);
+
+            foreach (var point in board)
+            {
+                Assert.False(point.IsHidden);
+                Assert.NotEqual("#", point.DisplayCharacter);
+            }
+            Assert.Equal(GameState.Lost, actual);
+        }
+
+        [Fact]
+        public void MineNotHit_UnhidesPoint_ReturnsGameStateInProgress()
+        {
+            var point = new GridPoint { IsHidden = true, IsMine = false, DisplayCharacter = "#", AdjacentMineCount = 1 };
+            var actual = GamePlay.MineNotHit(point);
+
+            Assert.False(point.IsHidden);
+            Assert.Equal(point.DisplayCharacter, point.AdjacentMineCount.ToString());
+            Assert.Equal(GameState.InProgress, actual);
+        }
+
+        [Fact]
+        public void CheckForWin_AllNonMinePointsRevealed_ReturnsGameStateWon()
         {
             var board = BoardCreator.CreateNewBoard(3, 3, 3);
             foreach (var point in board)
@@ -55,19 +82,19 @@ namespace Minesweeper.Tests
                 if (!point.IsMine) point.IsHidden = false;
             }
 
-            var actual = GamePlay.IsWin(board, 3);
+            var actual = GamePlay.CheckForWin(board, 3);
 
-            Assert.True(actual);
+            Assert.Equal(GameState.Won, actual);
         }
 
         [Fact]
-        public void IsWin_NonMinePointsHidden_ReturnsFalse()
+        public void CheckForWin_NonMinePointsHidden_ReturnsGameStateInProgress()
         {
             var board = BoardCreator.CreateNewBoard(3, 3, 3);
 
-            var actual = GamePlay.IsWin(board, 3);
+            var actual = GamePlay.CheckForWin(board, 3);
             
-            Assert.False(actual);
+            Assert.Equal(GameState.InProgress, actual);
         }
     }
 }

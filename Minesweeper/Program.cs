@@ -37,27 +37,18 @@ namespace Minesweeper
 
                     var selectedPoint = board[inputCoords[0], inputCoords[1]];
 
-                    if (selectedPoint.IsMine)
-                    {
-                        foreach (var point in board)
-                        {
-                            point.IsHidden = false;
-                            GridPointHelper.SetDisplayCharacter(point);
-                        }
+                    gameOver = selectedPoint.IsMine;
 
-                        GamePlay.DisplayBoard(board, letters);
-                        Console.WriteLine("**Sorry you hit a mine**");
-                        Console.WriteLine("--Press any key to play again--");
-                        Console.WriteLine();
-                        gameOver = true;
+                    if (gameOver)
+                    {
+                        GamePlay.MineHit(board, letters);
                         Console.ReadKey();
                     }
                     else
                     {
-                        selectedPoint.IsHidden = false;
-                        GridPointHelper.SetDisplayCharacter(selectedPoint);
-                        bool win = GamePlay.IsWin(board, mineCount);
-                        if (win)
+                        GamePlay.MineNotHit(selectedPoint);
+                        GameState state = GamePlay.CheckForWin(board, mineCount);
+                        if (state == GameState.Won)
                         {
                             GamePlay.DisplayBoard(board, letters);
                             Console.WriteLine("**Congratulations - you won!**");
