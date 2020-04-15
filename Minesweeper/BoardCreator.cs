@@ -2,9 +2,9 @@
 {
     public static class BoardCreator
     {
-        public static GridPoint[,] CreateNewBoard(int boardHeight, int boardWidth, int minesToPlace)
+        public static GridPoint[,] CreateNewBoard(int width, int height, int minesToPlace)
         {
-            GridPoint[,] board = new GridPoint[boardHeight, boardWidth];
+            GridPoint[,] board = new GridPoint[width, height];
             board.AddGridPointsToBoard();
             board.AddMinesToBoard(minesToPlace);
             board.CalculateAdjacentMineCount();

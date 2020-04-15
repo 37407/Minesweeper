@@ -6,16 +6,16 @@ namespace Minesweeper
     {
         public static GridPoint[,] AddGridPointsToBoard(this GridPoint[,] board)
         {
-            var boardWidth = board.GetLength(0);
-            var boardHeight = board.GetLength(1);
+            var height = board.GetLength(0);
+            var width = board.GetLength(1);
 
-            for (int x = 0; x < boardWidth; x++)
+            for (int x = 0; x < height; x++)
             {
-                for (int y = 0; y < boardHeight; y++)
+                for (int y = 0; y < width; y++)
                 {
                     board[x, y] = new GridPoint
                     {
-                        NeighbourCoordinates = GridPointHelper.CalculateNeighbourCoordinates(x, y, boardWidth, boardHeight),
+                        NeighbourCoordinates = GridPointHelper.CalculateNeighbourCoordinates(x, y, height, width),
                         IsHidden = true,
                         IsMine = false,
                         AdjacentMineCount = 0

@@ -7,12 +7,14 @@ namespace Minesweeper.Tests
     {
         [Theory]
         [InlineData("A1", true)]
+        [InlineData("A4", true)]
         [InlineData("A", false)]
         [InlineData("A1A", false)]
         [InlineData("1A", false)]
         [InlineData("E1", false)]
         [InlineData("AZ", false)]
         [InlineData("A5", false)]
+        [InlineData("A0", false)]
         public void UserInputValid_ValidatesInputStringsCorrectly(string input, bool expected)
         {
             List<string> letters = new List<string> { "A", "B", "C", "D" };

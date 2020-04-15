@@ -25,12 +25,13 @@ namespace Minesweeper
             }
         }
 
-        public static bool UserInputValid(string input, List<string> letters, int boardHeight)
+        public static bool UserInputValid(string input, List<string> letters, int height)
         {
             return input.Length == 2
                 && letters.Contains(input[0].ToString())
-                && int.TryParse(input[1].ToString(), out int column)
-                && column < boardHeight;
+                && int.TryParse(input[1].ToString(), out int result)
+                && result <= height
+                && result > 0;
         }
 
         public static int[] MapUserInputToCoordinates(List<string> letters, string input)

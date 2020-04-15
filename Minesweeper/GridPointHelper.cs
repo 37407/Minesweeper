@@ -4,14 +4,14 @@ namespace Minesweeper
 {
     public static class GridPointHelper
     {
-        public static IList<int[]> CalculateNeighbourCoordinates(int startXcoord, int startYcoord, int boardWidth, int boardHeight)
+        public static IList<int[]> CalculateNeighbourCoordinates(int startXcoord, int startYcoord, int height, int width)
         {
             List<int[]> neighbourCoordinates = new List<int[]>();
             for (int x = startXcoord + 1; x >= startXcoord - 1; x--)
             {
                 for (int y = startYcoord + 1; y >= startYcoord - 1; y--)
                 {
-                    if ((x == startXcoord && y == startYcoord) || x < 0 || y < 0 || x >= boardWidth || y >= boardHeight) continue;
+                    if ((x == startXcoord && y == startYcoord) || x < 0 || y < 0 || x >= height || y >= width) continue;
                     neighbourCoordinates.Add(new int[] { x, y });
                 }
             }

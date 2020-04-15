@@ -8,14 +8,14 @@ namespace Minesweeper
         static void Main(string[] args)
         {
             bool newGame = true;
-            int boardWidth = 8;
-            int boardHeight = 8;
+            int height = 8;
+            int width = 8;
             int mineCount = 8;
             var letters = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
 
             while (newGame)
             {
-                var board = BoardCreator.CreateNewBoard(boardWidth, boardHeight, mineCount);
+                var board = BoardCreator.CreateNewBoard(height, width, mineCount);
                 bool gameOver = false;
 
                 while (!gameOver)
@@ -23,14 +23,15 @@ namespace Minesweeper
                     GamePlay.DisplayBoard(board, letters);
                     Console.WriteLine("Please enter a column and row (e.g. A8):");
                     
-                    string input;
-                    bool validInput;
-                    do
+                    string input = Console.ReadLine().ToUpperInvariant();
+                    bool validInput = GamePlay.UserInputValid(input, letters, height);
+
+                    while (!validInput)
                     {
+                        Console.WriteLine("Input is invalid - please enter a column and row in the format A8.");
                         input = Console.ReadLine().ToUpperInvariant();
-                        validInput = GamePlay.UserInputValid(input, letters, boardHeight);
-                        Console.WriteLine("Input is invalid - please enter a column and rod in the format A8.");
-                    } while (!validInput);
+                        validInput = GamePlay.UserInputValid(input, letters, height);
+                    }
 
                     var inputCoords = GamePlay.MapUserInputToCoordinates(letters, input);
 
