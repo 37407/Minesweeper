@@ -41,7 +41,7 @@ namespace Minesweeper
             return new int[] { row, column };
         }
 
-        public static GameState MineHit(GridPoint[,] board, List<string> letters)
+        public static GameState MineHit(GridPoint[,] board, List<string> letters, Messages messages)
         {
             foreach (var point in board)
             {
@@ -50,8 +50,8 @@ namespace Minesweeper
             }
 
             DisplayBoard(board, letters);
-            Console.WriteLine("**Sorry you hit a mine**");
-            Console.WriteLine("--Press any key to play again--");
+            Console.WriteLine(messages.Lose);
+            Console.WriteLine(messages.PlayAgain);
             Console.WriteLine();
             return GameState.Lost;
         }

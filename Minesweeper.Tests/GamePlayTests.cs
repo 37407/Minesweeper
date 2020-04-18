@@ -51,8 +51,9 @@ namespace Minesweeper.Tests
         {
             var board = BoardCreator.CreateNewBoard(3, 3, 3);
             List<string> letters = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
+            Messages messages = new Messages { Lose = "Lose", PlayAgain = "PlayAgain" };
 
-            var actual = GamePlay.MineHit(board, letters);
+            var actual = GamePlay.MineHit(board, letters, messages);
 
             foreach (var point in board)
             {

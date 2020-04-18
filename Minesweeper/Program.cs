@@ -1,5 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Minesweeper
 {
@@ -7,57 +8,33 @@ namespace Minesweeper
     {
         static void Main(string[] args)
         {
-            bool newGame = true;
-            int height = 8;
-            int width = 8;
-            int mineCount = 8;
-            var letters = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
 
-            while (newGame)
+            var settings = configuration.GetSection(nameof(BoardSettings));
+            var messages = configuration.GetSection(nameof(Messages));
+            var letters = new List<string>();
+
+            BoardSettings boardSettings = new BoardSettings
             {
-                var board = BoardCreator.CreateNewBoard(height, width, mineCount);
-                bool gameOver = false;
+                Height = int.Parse(settings["Height"]),
+                Width = int.Parse(settings["Width"]),
+                MineCount = int.Parse(settings["MineCount"]),
+                Letters = settings["Letters"].Split(",").ToList()
+            };
 
-                while (!gameOver)
-                {
-                    GamePlay.DisplayBoard(board, letters);
-                    Console.WriteLine("Please enter a column and row (e.g. A8):");
-                    
-                    string input = Console.ReadLine().ToUpperInvariant();
-                    bool validInput = GamePlay.UserInputValid(input, letters, height);
+            Messages gameMessages = new Messages
+            {
+                Instruction = messages["Instruction"],
+                InvalidInput = messages["InvalidInput"],
+                Win = messages["Win"],
+                Lose = messages["Lose"],
+                PlayAgain = messages["PlayAgain"]
+            };
 
-                    while (!validInput)
-                    {
-                        Console.WriteLine("Input is invalid - please enter a column and row in the format A8.");
-                        input = Console.ReadLine().ToUpperInvariant();
-                        validInput = GamePlay.UserInputValid(input, letters, height);
-                    }
-
-                    var inputCoords = GamePlay.MapUserInputToCoordinates(letters, input);
-
-                    var selectedPoint = board[inputCoords[0], inputCoords[1]];
-
-                    gameOver = selectedPoint.IsMine;
-
-                    if (gameOver)
-                    {
-                        GamePlay.MineHit(board, letters);
-                        Console.ReadKey();
-                    }
-                    else
-                    {
-                        GamePlay.MineNotHit(selectedPoint);
-                        GameState state = GamePlay.CheckForWin(board, mineCount);
-                        if (state == GameState.Won)
-                        {
-                            GamePlay.DisplayBoard(board, letters);
-                            Console.WriteLine("**Congratulations - you won!**");
-                            gameOver = true;
-                            newGame = false;
-                        }
-                    }
-                }
-            }
+            GameRunner gameRunner = new GameRunner(boardSettings, gameMessages);
+            gameRunner.RunGame();
         }
     }
 }
