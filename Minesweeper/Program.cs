@@ -33,7 +33,9 @@ namespace Minesweeper
                 PlayAgain = messages["PlayAgain"]
             };
 
-            GameRunner gameRunner = new GameRunner(boardSettings, gameMessages);
+            ConsoleInputRetriever inputRetriever = new ConsoleInputRetriever();
+
+            GameRunner gameRunner = new GameRunner(boardSettings, gameMessages, inputRetriever);
             gameRunner.RunGame();
         }
     }

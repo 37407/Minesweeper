@@ -25,11 +25,6 @@ namespace Minesweeper
             }
         }
 
-        public static string UserInputValue()
-        {
-            return Console.ReadLine().ToUpperInvariant();
-        }
-
         public static bool UserInputValid(string input, List<string> letters, int height)
         {
             return input.Length == 2

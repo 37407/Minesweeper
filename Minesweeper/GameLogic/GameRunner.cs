@@ -4,14 +4,16 @@ namespace Minesweeper
 {
     public class GameRunner
     {
+        private IConsoleInputRetriever _inputRetriever;
         private GameState _state;
         private readonly BoardSettings _boardSettings;
         private readonly Messages _messages;
 
-        public GameRunner(BoardSettings boardSettings, Messages messages)
+        public GameRunner(BoardSettings boardSettings, Messages messages, IConsoleInputRetriever inputRetriever)
         {
             _boardSettings = boardSettings;
             _messages = messages;
+            _inputRetriever = inputRetriever;
             _state = GameState.InProgress;
         }
 
@@ -28,13 +30,13 @@ namespace Minesweeper
                     GamePlay.DisplayBoard(board, _boardSettings.Letters);
                     Console.WriteLine(_messages.Instruction);
 
-                    string input = Console.ReadLine().ToUpperInvariant();
+                    string input = _inputRetriever.UserInputReadLine();
                     bool validInput = GamePlay.UserInputValid(input, _boardSettings.Letters, _boardSettings.Height);
 
                     while (!validInput)
                     {
                         Console.WriteLine(_messages.InvalidInput);
-                        input = GamePlay.UserInputValue();
+                        input = _inputRetriever.UserInputReadLine();
                         validInput = GamePlay.UserInputValid(input, _boardSettings.Letters, _boardSettings.Height);
                     }
 
@@ -42,25 +44,40 @@ namespace Minesweeper
 
                     var selectedPoint = board[inputCoords[0], inputCoords[1]];
 
-                    gameOver = selectedPoint.IsMine;
+                    _state = UpdateGameStateOnUserInput(board, selectedPoint);
 
-                    if (gameOver)
+                    switch (_state)
                     {
-                        _state = GamePlay.MineHit(board, _boardSettings.Letters, _messages);
-                        GamePlay.UserInputValue();
-                    }
-                    else
-                    {
-                        GamePlay.MineNotHit(selectedPoint);
-                        _state = GamePlay.CheckForWin(board, _boardSettings.MineCount);
-                        if (_state == GameState.Won)
-                        {
-                            GamePlay.DisplayBoard(board, _boardSettings.Letters);
-                            Console.WriteLine(_messages.Win);
+                        case GameState.Won:
+                        case GameState.Lost:
                             gameOver = true;
-                        }
+                            break;
+                        default:
+                            break;
                     }
                 }
+            }
+        }
+
+        public GameState UpdateGameStateOnUserInput(GridPoint[,] board, GridPoint selectedPoint)
+        {
+            if (selectedPoint.IsMine)
+            {
+                _state = GamePlay.MineHit(board, _boardSettings.Letters, _messages);
+                _inputRetriever.UserInputReadKey();
+                return _state;
+            }
+            else
+            {
+                GamePlay.MineNotHit(selectedPoint);
+                _state = GamePlay.CheckForWin(board, _boardSettings.MineCount);
+                if (_state == GameState.Won)
+                {
+                    GamePlay.DisplayBoard(board, _boardSettings.Letters);
+                    Console.WriteLine(_messages.Win);
+                    return _state;
+                }
+                return _state;
             }
         }
     }
