@@ -8,7 +8,7 @@ namespace Minesweeper
         static void Main(string[] args)
         {
             IConfiguration configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("GameConfig.json")
                 .Build();
 
             var settings = configuration.GetSection("BoardSettings");

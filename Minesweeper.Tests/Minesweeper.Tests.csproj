@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Minesweeper\Minesweeper.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

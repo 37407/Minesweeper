@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
+using System.Linq;
 using Xunit;
 
 namespace Minesweeper.Tests
@@ -9,26 +10,33 @@ namespace Minesweeper.Tests
 
         public GameRunnerTests()
         {
-            BoardSettings settings = new BoardSettings
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("TestConfig.json")
+                .Build();
+
+            var settings = configuration.GetSection("BoardSettings");
+            var messages = configuration.GetSection("Messages");
+
+            BoardSettings boardSettings = new BoardSettings
             {
-                Width = 1,
-                Height = 1,
-                MineCount = 0,
-                Letters = new List<string> { "A" }
+                Height = int.Parse(settings["Height"]),
+                Width = int.Parse(settings["Width"]),
+                MineCount = int.Parse(settings["MineCount"]),
+                Letters = settings["Letters"].Split(",").ToList()
             };
 
-            Messages messages = new Messages
+            Messages gameMessages = new Messages
             {
-                Win = "Win",
-                Lose = "Lose",
-                Instruction = "Instruction",
-                InvalidInput = "Invalid",
-                PlayAgain = "PlayAgain"
+                Instruction = messages["Instruction"],
+                InvalidInput = messages["InvalidInput"],
+                Win = messages["Win"],
+                Lose = messages["Lose"],
+                PlayAgain = messages["PlayAgain"]
             };
 
             TestConsoleInputRetriever inputRetriever = new TestConsoleInputRetriever();
 
-            _runner = new GameRunner(settings, messages, inputRetriever);
+            _runner = new GameRunner(boardSettings, gameMessages, inputRetriever);
         }
 
         [Fact]
