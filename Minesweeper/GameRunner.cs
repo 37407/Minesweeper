@@ -34,7 +34,7 @@ namespace Minesweeper
                     while (!validInput)
                     {
                         Console.WriteLine(_messages.InvalidInput);
-                        input = Console.ReadLine().ToUpperInvariant();
+                        input = GamePlay.UserInputValue();
                         validInput = GamePlay.UserInputValid(input, _boardSettings.Letters, _boardSettings.Height);
                     }
 
@@ -47,7 +47,7 @@ namespace Minesweeper
                     if (gameOver)
                     {
                         _state = GamePlay.MineHit(board, _boardSettings.Letters, _messages);
-                        Console.ReadKey();
+                        GamePlay.UserInputValue();
                     }
                     else
                     {
