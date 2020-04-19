@@ -17,7 +17,7 @@ namespace Minesweeper
             _state = GameState.InProgress;
         }
 
-        public void RunGame()
+        public GameState RunGame()
         {
             while (_state != GameState.Won)
             {
@@ -57,6 +57,7 @@ namespace Minesweeper
                     }
                 }
             }
+            return GameState.Complete;
         }
 
         public GameState UpdateGameStateOnUserInput(GridPoint[,] board, GridPoint selectedPoint)

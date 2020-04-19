@@ -5,7 +5,7 @@ namespace Minesweeper.Tests
 {
     public class GameRunnerTests
     {
-        private GameRunner runner;
+        private readonly GameRunner _runner;
 
         public GameRunnerTests()
         {
@@ -28,7 +28,7 @@ namespace Minesweeper.Tests
 
             TestConsoleInputRetriever inputRetriever = new TestConsoleInputRetriever();
 
-            runner = new GameRunner(settings, messages, inputRetriever);
+            _runner = new GameRunner(settings, messages, inputRetriever);
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace Minesweeper.Tests
             var board = BoardCreator.CreateNewBoard(1, 1, 0);
             var point = board[0, 0];
 
-            var actual = runner.UpdateGameStateOnUserInput(board, point);
+            var actual = _runner.UpdateGameStateOnUserInput(board, point);
 
             Assert.Equal(GameState.Won, actual);
         }
@@ -48,7 +48,7 @@ namespace Minesweeper.Tests
             var board = BoardCreator.CreateNewBoard(1, 1, 1);
             var point = board[0, 0];
 
-            var actual = runner.UpdateGameStateOnUserInput(board, point);
+            var actual = _runner.UpdateGameStateOnUserInput(board, point);
 
             Assert.Equal(GameState.Lost, actual);
 
@@ -60,9 +60,16 @@ namespace Minesweeper.Tests
             var board = BoardCreator.CreateNewBoard(2, 2, 0);
             var point = board[0, 0];
 
-            var actual = runner.UpdateGameStateOnUserInput(board, point);
+            var actual = _runner.UpdateGameStateOnUserInput(board, point);
 
             Assert.Equal(GameState.InProgress, actual);
+        }
+
+        [Fact]
+        public void Gamerunner_GameCompletes_StateIsComplete()
+        {
+            var actual = _runner.RunGame();
+            Assert.Equal(GameState.Complete, actual);
         }
     }
 }

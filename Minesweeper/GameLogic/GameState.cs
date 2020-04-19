@@ -4,6 +4,7 @@
     {
         InProgress,
         Lost,
-        Won
+        Won,
+        Complete
     }
 }
