@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Minesweeper
@@ -12,9 +11,8 @@ namespace Minesweeper
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var settings = configuration.GetSection(nameof(BoardSettings));
-            var messages = configuration.GetSection(nameof(Messages));
-            var letters = new List<string>();
+            var settings = configuration.GetSection("BoardSettings");
+            var messages = configuration.GetSection("Messages");
 
             BoardSettings boardSettings = new BoardSettings
             {
