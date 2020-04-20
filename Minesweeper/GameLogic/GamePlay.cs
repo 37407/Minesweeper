@@ -10,13 +10,17 @@ namespace Minesweeper
             Console.Write("  ");
             foreach (var letter in letters)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write(" " + letter);
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
             Console.WriteLine();
 
             for (int x = 0; x < board.GetLength(0); x++)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write($"{x + 1}  ");
+                Console.ForegroundColor = ConsoleColor.Gray;
                 for (int y = 0; y < board.GetLength(1); y++)
                 {
                     Console.Write(board[x, y].DisplayCharacter + " ");
@@ -50,8 +54,13 @@ namespace Minesweeper
             }
 
             DisplayBoard(board, letters);
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(messages.Lose);
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(messages.PlayAgain);
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine();
             return GameState.Lost;
         }

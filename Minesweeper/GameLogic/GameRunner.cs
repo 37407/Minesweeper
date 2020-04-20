@@ -28,14 +28,19 @@ namespace Minesweeper
                 while (!gameOver)
                 {
                     GamePlay.DisplayBoard(board, _boardSettings.Letters);
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine(_messages.Instruction);
+                    Console.ForegroundColor = ConsoleColor.Gray;
 
                     string input = _inputRetriever.UserInputReadLine();
                     bool validInput = GamePlay.UserInputValid(input, _boardSettings.Letters, _boardSettings.Height);
 
                     while (!validInput)
                     {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         Console.WriteLine(_messages.InvalidInput);
+                        Console.ForegroundColor = ConsoleColor.Gray;
                         input = _inputRetriever.UserInputReadLine();
                         validInput = GamePlay.UserInputValid(input, _boardSettings.Letters, _boardSettings.Height);
                     }
@@ -75,7 +80,10 @@ namespace Minesweeper
                 if (_state == GameState.Won)
                 {
                     GamePlay.DisplayBoard(board, _boardSettings.Letters);
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(_messages.Win);
+                    Console.ForegroundColor = ConsoleColor.Gray;
                     return _state;
                 }
                 return _state;
