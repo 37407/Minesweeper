@@ -3,7 +3,7 @@
     "Width": 1,
     "Height": 1,
     "MineCount": 0,
-    "Letters": "A"
+    "Letters": ["A"]
   },
   "Messages": {
     "Instruction": "Please enter a column and row (e.g. A8):",

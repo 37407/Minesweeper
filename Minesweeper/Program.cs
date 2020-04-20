@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Linq;
 
 namespace Minesweeper
 {
@@ -11,29 +10,12 @@ namespace Minesweeper
                 .AddJsonFile("GameConfig.json")
                 .Build();
 
-            var settings = configuration.GetSection("BoardSettings");
-            var messages = configuration.GetSection("Messages");
-
-            BoardSettings boardSettings = new BoardSettings
-            {
-                Height = int.Parse(settings["Height"]),
-                Width = int.Parse(settings["Width"]),
-                MineCount = int.Parse(settings["MineCount"]),
-                Letters = settings["Letters"].Split(",").ToList()
-            };
-
-            Messages gameMessages = new Messages
-            {
-                Instruction = messages["Instruction"],
-                InvalidInput = messages["InvalidInput"],
-                Win = messages["Win"],
-                Lose = messages["Lose"],
-                PlayAgain = messages["PlayAgain"]
-            };
+            var settings = configuration.GetSection("BoardSettings").Get<BoardSettings>();
+            var messages = configuration.GetSection("Messages").Get<Messages>();
 
             ConsoleInputRetriever inputRetriever = new ConsoleInputRetriever();
 
-            GameRunner gameRunner = new GameRunner(boardSettings, gameMessages, inputRetriever);
+            GameRunner gameRunner = new GameRunner(settings, messages, inputRetriever);
             gameRunner.RunGame();
         }
     }
