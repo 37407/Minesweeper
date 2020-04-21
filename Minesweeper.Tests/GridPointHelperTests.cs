@@ -88,7 +88,7 @@ namespace Minesweeper.Tests
         [InlineData(false, true, 1, "m")]
         [InlineData(false, false, 0, "0")]
         [InlineData(false, false, 1, "1")]
-        public void GridPoint_SetDisplayCharacter_SetsCorrectCharacter(bool hidden, bool isMine, int adjacentMines, string display)
+        public void GridPoint_SetDisplayCharacter_SetsCorrectCharacter(bool hidden, bool isMine, int adjacentMines, string displayed)
         {
             var point = new GridPoint
             {
@@ -99,7 +99,7 @@ namespace Minesweeper.Tests
 
             GridPointHelper.SetDisplayCharacter(point);
 
-            Assert.Equal(display, point.DisplayCharacter);
+            Assert.Equal(displayed, point.DisplayCharacter);
         }
     }
 }

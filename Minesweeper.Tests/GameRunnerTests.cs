@@ -33,7 +33,7 @@ namespace Minesweeper.Tests
         }
 
         [Fact]
-        public void GameRunner_MineHit_GameStateIsLose()
+        public void GameRunner_MineHit_StateIsLose()
         {
             var board = BoardCreator.CreateNewBoard(1, 1, 1);
             var point = board[0, 0];

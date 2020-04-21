@@ -15,6 +15,7 @@ namespace Minesweeper.Tests
         [InlineData("AZ", false)]
         [InlineData("A5", false)]
         [InlineData("A0", false)]
+        [InlineData("", false)]
         public void UserInputValid_ValidatesInputStringsCorrectly(string input, bool expected)
         {
             List<string> letters = new List<string> { "A", "B", "C", "D" };
@@ -35,15 +36,15 @@ namespace Minesweeper.Tests
         [InlineData("F6", 5, 5)]
         [InlineData("G7", 6, 6)]
         [InlineData("H8", 7, 7)]
-        public void MapUserInputToCoordinates_Maps_CorrectValues(string input, int horizontal, int vertical)
+        public void MapUserInputToCoordinates_Maps_CorrectValues(string input, int column, int row)
         {
             List<string> letters = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
 
             var actual = GamePlay.MapUserInputToCoordinates(letters, input);
 
             Assert.IsType<int[]>(actual);
-            Assert.Equal(horizontal, actual[0]);
-            Assert.Equal(vertical, actual[1]);
+            Assert.Equal(column, actual[0]);
+            Assert.Equal(row, actual[1]);
         }
 
         [Fact]
